@@ -1,5 +1,4 @@
-whois
-Flask 
+Flask
 gunicorn
 joblib
 scikit-learn
