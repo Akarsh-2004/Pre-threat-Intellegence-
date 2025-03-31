@@ -5,9 +5,6 @@ import logic.email_check as email_check
 import logic.phishing_check as phishing_check
 import logic.whois_check as whois_check
 from logic import ip_checker
-from logic.IDSf.ids_model import analyze_log  # Ensure this function exists
-
-
 
 # Load the trained IDS model and preprocessor
 model = joblib.load("random_forest_model.pkl")
@@ -99,28 +96,4 @@ def setup_routes(app):
 
 
 
-    @app.route('/check_ids', methods=['POST'])
-    def check_ids():
-        if 'logfile' not in request.files:
-            return redirect(url_for('home'))
-
-        log_file = request.files['logfile']
-        log_type = request.form.get('logtype')
-
-        if log_file.filename == '':
-            return redirect(url_for('home'))
-
-        file_path = os.path.join(UPLOAD_FOLDER, log_file.filename)
-        log_file.save(file_path)
-
-        # Analyze log file with IDS model
-        intrusion_detected, details = analyze_log(file_path, log_type)
-
-        result = {
-            "File Analyzed": log_file.filename,
-            "Log Type": log_type,
-            "Intrusion Detected": "❌ Threat Detected" if intrusion_detected else "✅ No Threats Found",
-            "Details": details
-        }
-
-        return render_template('results.html', result=result)
+    
