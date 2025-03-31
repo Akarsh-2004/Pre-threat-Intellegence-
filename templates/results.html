@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Result</title>
+    <style>
+        /* General Page Styling */
+        /* Fix Full Page Alignment */
+body {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Change from center to fix top cut-off issue */
+    min-height: 100vh;
+}
+
+/* Ensure proper container height */
+.container {
+    width: 100%;
+    max-width: 900px; /* Increased width for better formatting */
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Prevent JSON Overflow */
+.json-box {
+    background: #111;
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: auto; /* Allow horizontal scroll */
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: #0ff;
+    max-width: 00%; /* Prevent JSON from overflowing */
+}
+
+
+        /* Result Card - Dynamic Styling */
+        .result-card {
+            background: rgba(20, 20, 20, 0.95);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            width: 100%;
+            margin-top: 30px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.5);
+            border: 2px solid cyan;
+        }
+
+        /* If phishing detected, apply warning styles */
+        .phishing-alert {
+            border: 2px solid red !important;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.7) !important;
+            animation: alertGlow 1.5s infinite alternate;
+        }
+
+        @keyframes alertGlow {
+            0% { box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5); }
+            100% { box-shadow: 0 4px 20px rgba(255, 0, 0, 0.9); }
+        }
+
+        /* Heading */
+        .result-card h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px cyan;
+        }
+
+        .phishing-alert h1 {
+            color: red !important;
+            text-shadow: 0 0 8px red !important;
+        }
+
+        /* Table Styling */
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .result-table th, .result-table td {
+            border: 1px solid #00ffaa;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .result-table th {
+            background: rgba(0, 255, 255, 0.2);
+            font-size: 18px;
+            color: cyan;
+        }
+
+        .result-table td {
+            font-size: 16px;
+            color: #e0e0e0;
+        }
+
+        /* Phishing-specific table styles */
+        .phishing-alert .result-table {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        .phishing-alert .result-table th {
+            background: rgba(255, 0, 0, 0.3);
+            color: red;
+        }
+
+        .phishing-alert .result-table td {
+            color: #ffaaaa;
+        }
+
+        /* Button Styling */
+        .button-container {
+            margin-top: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            background: linear-gradient(135deg, #004466, #00ffaa);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #00ffaa, #004466);
+            box-shadow: 0 0 12px cyan;
+            transform: scale(1.05);
+        }
+
+        /* Phishing alert button */
+        .phishing-alert button {
+            background: linear-gradient(135deg, #660000, #ff4444);
+        }
+
+        .phishing-alert button:hover {
+            background: linear-gradient(135deg, #ff4444, #660000);
+            box-shadow: 0 0 12px red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="result-card {% if phishing %}phishing-alert{% endif %}">
+            <h1>{% if phishing %}⚠️ Suspicious URL Detected! ⚠️{% else %}🔍 Analysis Result{% endif %}</h1>
+            <table class="result-table">
+                <tr>
+                    <th>Category</th>
+                    <th>Details</th>
+                </tr>
+                {% for key, value in result.items() %}
+                    <tr>
+                        <td><strong>{{ key }}</strong></td>
+                        <td>
+                            {% if key == "VirusTotal Response" %}
+                                <pre class="json-box">{{ value | tojson(indent=4) }}</pre>
+                            {% else %}
+                                {{ value }}
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+            <div class="button-container">
+                <button onclick="goBack()">
+                    {% if phishing %} 🛑 Go Back to Safety 🛑 {% else %} ⬅️ Go Back {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

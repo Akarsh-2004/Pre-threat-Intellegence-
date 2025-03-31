@@ -1,0 +1,121 @@
+/* Cyber Security-Themed Animated Background */
+/* Cyber Security-Themed Animated Background */
+body {
+    background-color: #0a0a0a;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow: auto;  /* Allow scrolling */
+    position: relative;
+}
+
+/* Matrix-Like Floating Binary Animation */
+@keyframes binaryRain {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(100%); }
+}
+
+.binary-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: rgb(208, 229, 115);
+    font-size: 18px;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: -1;
+    animation: binaryRain 5s linear infinite alternate;
+    line-height: 1.5;
+    opacity: 0.5;
+}
+
+
+
+.heading {
+    text-align: center;
+    margin: 30px auto;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 255, 255, 0.2);
+    max-width: 800px;
+    background: linear-gradient(135deg, #112233, #004466);
+    color: cyan;
+}
+
+.heading h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 10px cyan;
+}
+
+/* Cards for Different Sections */
+.phishing, .whois, .IDS, .email, .ipStatus {
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid cyan;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 255, 255, 0.1);
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.phishing:hover, .whois:hover, .IDS:hover, .email:hover, .ipStatus:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* Input Fields */
+.phishing input, .whois input, .IDS input, .email input, .ipStatus input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #00ffaa;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    outline: none;
+    color: white;
+    font-size: 14px;
+}
+
+.phishing input:focus, .whois input:focus, .IDS input:focus, .email input:focus, .ipStatus input:focus {
+    border-color: cyan;
+    box-shadow: 0 0 10px cyan;
+}
+
+/* Buttons */
+.phishing input[type="button"], 
+.whois input[type="button"], 
+.IDS input[type="button"], 
+.email input[type="button"], 
+.ipStatus input[type="button"] {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #004466, #00ffaa);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-shadow: 0 0 5px #000;
+}
+
+.phishing input[type="button"]:hover, 
+.whois input[type="button"]:hover, 
+.IDS input[type="button"]:hover, 
+.email input[type="button"]:hover, 
+.ipStatus input[type="button"]:hover {
+    background: linear-gradient(135deg, #00ffaa, #004466);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+}
