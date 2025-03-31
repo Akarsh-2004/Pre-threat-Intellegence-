@@ -1,7 +1,13 @@
-Flask
+Flask 
 gunicorn
 joblib
+scikit-learn
 numpy
 pandas
-scikit-learn
-python-whois
+dnspython
+whois
+requests
+email-validator
+tqdm
+pyyaml
+python-dotenv
