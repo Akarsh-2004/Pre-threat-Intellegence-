@@ -6,9 +6,7 @@ import logic.phishing_check as phishing_check
 import logic.whois_check as whois_check
 from logic import ip_checker
 
-# Load the trained IDS model and preprocessor
-model = joblib.load("random_forest_model.pkl")
-preprocessor = joblib.load("preprocessor.pkl")
+
 #----------------------------------------------------------------------------------------------------------------------------------------
 
 
