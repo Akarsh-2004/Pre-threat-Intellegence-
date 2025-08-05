@@ -15,9 +15,13 @@ def setup_routes(app):
     def home():
         return render_template('index.html')
 
+    # Health Check Route
+    @app.route('/ping', methods=['GET'])
+    def ping():
+        return jsonify({"message": "pong"}), 200
 
-#check Email----------------------------------------------------------------------------------------------------------------------------------------
 
+    # Check Email
     @app.route('/check_email', methods=['POST'])
     def check_email():
         email = request.form.get('email')
@@ -32,8 +36,8 @@ def setup_routes(app):
         }
         return render_template('results.html', result=result)
 
-#check url----------------------------------------------------------------------------------------------------------------------------------------
 
+    # Check URL
     @app.route('/check_url', methods=['POST'])
     def check_url():
         url = request.form.get('url')
@@ -41,9 +45,7 @@ def setup_routes(app):
             return redirect(url_for('home'))
 
         reputation, suspicious = phishing_check.check_url(url)
-        
-        # Determine if it's phishing or not
-        phishing = suspicious  # This will be True if suspicious
+        phishing = suspicious
 
         result = {
             "URL Given": url,
@@ -53,8 +55,8 @@ def setup_routes(app):
 
         return render_template('results.html', result=result, phishing=phishing)
 
-#check who is----------------------------------------------------------------------------------------------------------------------------------------
 
+    # Check WHOIS
     @app.route('/check_whois', methods=['POST'])
     def check_whois():
         domain = request.form.get('domain')
@@ -69,18 +71,15 @@ def setup_routes(app):
         }
         return render_template('results.html', result=result)
 
-#check ip----------------------------------------------------------------------------------------------------------------------------------------
 
-
+    # Check IP
     @app.route('/ip_check', methods=['POST'])
     def ip_check():
         ipToCheck = request.form.get('ip_add')
         if not ipToCheck:
             return redirect(url_for('home'))
 
-        # Fetch analysis results
         status, location, ISP, dns_records = ip_checker.check_ip(ipToCheck)
-
         result = {
             "IP": ipToCheck,
             "Status": status,
@@ -90,8 +89,3 @@ def setup_routes(app):
         }
 
         return render_template('results.html', result=result)
-
-
-
-
-    
